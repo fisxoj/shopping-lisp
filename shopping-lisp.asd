@@ -18,10 +18,19 @@
   :version "0.1"
   :author "Matt Novenstern"
   :license ""
-  :depends-on (:nest)
+  :depends-on (:nest
+               :mito
+               :alexandria
+               :defclass-std
+               :jonathan
+               :validate
+               :cl-pass
+               :lack-middleware-accesslog)
   :components ((:module "src"
                 :components
-                ((:file "shopping-lisp"))))
+                ((:file "constants")
+                 (:file "db")
+                 (:file "shopping-lisp"))))
   :description "Lisp reimplementation of the backend of the android shopping list app."
   :long-description
   #.(with-open-file (stream (merge-pathnames
