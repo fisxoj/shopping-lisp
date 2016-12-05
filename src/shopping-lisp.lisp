@@ -5,7 +5,8 @@
 (in-package :shopping-lisp)
 
 (defapp app
-    :middlewares (lack.middleware.accesslog:*lack-middleware-accesslog*))
+    :middlewares (lack.middleware.accesslog:*lack-middleware-accesslog*
+                  lack.middleware.backtrace:*lack-middleware-backtrace*))
 
 (defun api-response (&key type content items status)
   "Generates a JSON object matching the shopping list api response style, which always has a 'type' field, which is a status code as in shopping-lisp.constants, and optionally 'items' (when returning database items) and 'content' if there is an explanatory string."

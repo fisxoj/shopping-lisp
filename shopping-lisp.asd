@@ -25,7 +25,8 @@
                :jonathan
                :validate
                :cl-pass
-               :lack-middleware-accesslog)
+               :lack-middleware-accesslog
+               :lack-middleware-backtrace)
   :components ((:module "src"
                 :components
                 ((:file "constants")
