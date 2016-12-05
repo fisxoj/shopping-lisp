@@ -17,7 +17,9 @@
   ((name :col-type :text)
    (count :col-type :integer))
   (:metaclass dao-table-class)
-  (:unique-key item))
+  (:auto-pk nil)
+  (:primary-key name)
+  (:documentation "Shopping list item definition.  `name` is a unique key and is used as the primary key by the app."))
 
 (defmethod jojo:%to-json ((item shopping-item))
   (jojo:with-object
