@@ -14,6 +14,12 @@ With the default configuration, the server can be run with
 In production, you'll want to set `ENV=production` so the [`nest`](https://gitlab.com/knttl/nest) framework uses production settings.  At the moment, `nest` is still under heavy development, so YMMV, but it works well enough for now.  I recommend a reverse proxy, since most lisp web servers don't receive the same sort of security scrutiny one would want with a public-facing server.
 
 ## Installation
+
+You will need two libraries that aren't in quicklisp to run this, because I've written them and don't feel like they're mature enough to publish for general use, yet.
+
+* https://gitlab.com/knttl/nest
+* https://github.com/fisxoj/validate
+
 I think I'm going to work on a Docker image at some point, for now it's just a standard lisp package.
 
 ## Configuration
