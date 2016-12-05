@@ -1,6 +1,6 @@
 (in-package :cl-user)
 (defpackage shopping-lisp
-  (:use :cl :nest :alexandria)
+  (:use :cl :nest :alexandria :shopping-lisp.constants)
   (:export #:run))
 (in-package :shopping-lisp)
 
@@ -17,20 +17,20 @@
       (setf resp (nconc resp (list :|items| items))))
     (respond-json resp
                   :status (or status 200)
-                  :headers `(:|ShoLiBackendVersion| ,shopping-lisp.constants::+backend-version+))))
+                  :headers `(:|ShoLiBackendVersion| ,+backend-version+))))
 
 (defmacro validated (&body body)
   `(handler-case
        (progn ,@body)
      (v:<validation-error> (e)
        (declare (ignore e))
-       (api-response :type shopping-lisp.constants::+api-error-unknown+
+       (api-response :type +api-error-unknown+
                      :content "Invalid parameter"))))
 
 (defmacro with-password-check (&body body)
   `(if (cl-pass:check-password (body-parameter :auth "") (config :auth-hash))
        (progn ,@body)
-       (api-response :type shopping-lisp.constants::+api-error-403+
+       (api-response :type +api-error-403+
                      :content "Authentication failed.")))
 
 (defun validate-item (item)
@@ -46,22 +46,22 @@
       ("listall"
        (let ((items (mito:select-dao 'shopping-lisp.db:shopping-item)))
          (if items
-             (api-response :type shopping-lisp.constants::+api-success-list+ :items items)
-             (api-response :type shopping-lisp.constants::+api-success-list-empty+))))
+             (api-response :type +api-success-list+ :items items)
+             (api-response :type +api-success-list-empty+))))
 
        ("save"
         (validated
           (let ((item (validate-item (list :|itemTitle| (body-parameter :item)
                                            :|itemCount| (body-parameter :count)))))
             (shopping-lisp.db:upsert item)
-            (api-response :type shopping-lisp.constants::+api-success-save+
+            (api-response :type +api-success-save+
                           :content (format nil "~a saved." (getf item :name))))))
 
        ("saveMultiple"
         (validated
           (let* ((items (mapcar #'validate-item (v:list (body-parameter :jsonArray)))))
             (shopping-lisp.db:save-list items)
-            (api-response :type shopping-lisp.constants::+api-success-save+
+            (api-response :type +api-success-save+
                           :content "Multiple items saved"))))
 
        ("deleteMultiple"
@@ -69,7 +69,7 @@
           (let* ((items (v:list (body-parameter :jsonArray)))
                  (names (mapcar (lambda (i) (getf i :|itemTitle|)) items)))
             (shopping-lisp.db:delete-by-list names))
-          (api-response :type shopping-lisp.constants::+API-SUCCESS-DELETE+
+          (api-response :type +API-SUCCESS-DELETE+
                         :content "Multiple items deleted")))
 
        ("update"
@@ -87,11 +87,11 @@
 
        ("clear"
         (shopping-lisp.db:clear-db)
-        (api-response :type shopping-lisp.constants::+api-success-clear+
+        (api-response :type +api-success-clear+
                       :content "List cleared"))
 
        (t
-           (api-response :type shopping-lisp.constants::+api-error-missing-function+
+           (api-response :type +api-error-missing-function+
                          :content "Unknown function")))))
 
 (defroute app ("/api.php" :post)

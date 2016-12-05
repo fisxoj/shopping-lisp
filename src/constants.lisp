@@ -1,30 +1,65 @@
 (defpackage #:shopping-lisp.constants
-  (:use #:cl))
+  (:use #:cl)
+  (:export #:+backend-version+
+
+           #:+api-success-list+
+           #:+api-success-list-empty+
+           #:+api-success-update+
+           #:+api-success-favorite+
+           #:+api-success-delete+
+           #:+api-success-save+
+           #:+api-success-delete+
+
+           #:+api-error-server+
+           #:+api-error-404+
+           #:+api-error-403+
+           #:+api-error-missing-function+
+           #:+api-error-no-database+
+           #:+api-error-config+
+           #:+api-error-unknown+
+           #:+api-error-database-connect+
+           #:+api-error-missing-parameter+
+           #:+api-error-function-not-specified+
+           #:+api-error-not-configured+
+           #:+api-error-update+
+           #:+api-error-favorite+
+           #:+api-error-delete+
+           #:+api-error-save+
+           #:+api-error-clear+))
 
 (in-package #:shopping-lisp.constants)
 
-(defconstant +BACKEND-VERSION+ 1.0)
-(defconstant +API-SUCCESS-LIST+ 1000)
-(defconstant +API-SUCCESS-LIST-EMPTY+ 1001)
-(defconstant +API-SUCCESS-UPDATE+ 1002)
-(defconstant +API-SUCCESS-FAVORITE+ 1003)
-(defconstant +API-SUCCESS-DELETE+ 1004)
-(defconstant +API-SUCCESS-SAVE+ 1005)
-(defconstant +API-SUCCESS-CLEAR+ 1006)
-(defconstant +API-ERROR-SERVER+ 5000)
-(defconstant +API-ERROR-404+ 5001)
-(defconstant +API-ERROR-403+ 5002)
-(defconstant +API-ERROR-MISSING-FUNCTION+ 5003)
-(defconstant +API-ERROR-NO-DATABASE+ 5004)
-(defconstant +API-ERROR-CONFIG+ 5005)
-(defconstant +API-ERROR-UNKNOWN+ 5006)
-(defconstant +API-ERROR-DATABASE-CONNECT+ 5012)
-(defconstant +API-ERROR-MISSING-PARAMETER+ 5013)
-(defconstant +API-ERROR-FUNCTION-NOT-SPECIFIED+ 5014)
-(defconstant +API-ERROR-NOT-CONFIGURED+ 5015)
+;;;; Constants
+;;;;
+;;;; These are response codes that the server uses to communicate to the app.  The app seems to expect
+;;;; a certain version for the backend and won't accept communication without that set.
+;;;;
+;;;; The other codes mostly don't do anything special, as far as I can tell, aside
+;;;; from +api-success-list-empty+, which communicates that the shopping list is empty.
 
-(defconstant +API-ERROR-UPDATE+ 6001)
-(defconstant +API-ERROR-FAVORITE+ 6002)
-(defconstant +API-ERROR-DELETE+ 6003)
-(defconstant +API-ERROR-SAVE+ 6004)
-(defconstant +API-ERROR-CLEAR+ 6005)
+
+(defconstant +backend-version+ 1.0)
+(defconstant +api-success-list+ 1000)
+(defconstant +api-success-list-empty+ 1001)
+(defconstant +api-success-update+ 1002)
+(defconstant +api-success-favorite+ 1003)
+(defconstant +api-success-delete+ 1004)
+(defconstant +api-success-save+ 1005)
+(defconstant +api-success-clear+ 1006)
+(defconstant +api-error-server+ 5000)
+(defconstant +api-error-404+ 5001)
+(defconstant +api-error-403+ 5002)
+(defconstant +api-error-missing-function+ 5003)
+(defconstant +api-error-no-database+ 5004)
+(defconstant +api-error-config+ 5005)
+(defconstant +api-error-unknown+ 5006)
+(defconstant +api-error-database-connect+ 5012)
+(defconstant +api-error-missing-parameter+ 5013)
+(defconstant +api-error-function-not-specified+ 5014)
+(defconstant +api-error-not-configured+ 5015)
+
+(defconstant +api-error-update+ 6001)
+(defconstant +api-error-favorite+ 6002)
+(defconstant +api-error-delete+ 6003)
+(defconstant +api-error-save+ 6004)
+(defconstant +api-error-clear+ 6005)
