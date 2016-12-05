@@ -75,8 +75,6 @@
 (defun update-by-name (name count)
   "Finds item by `name` and updates `count`."
 
-  (if-let ((item (find-dao 'shopping-item :name name)))
-    (progn
-      (setf (count item) count)
-      (save-dao item))
-    nil))
+  (when-let ((item (find-dao 'shopping-item :name name)))
+    (setf (count item) count)
+    (save-dao item)))
