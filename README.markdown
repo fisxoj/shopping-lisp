@@ -1,4 +1,6 @@
-# Shopping-Lisp - Lisp reimplementation of the backend of the android shopping list app.
+# Shopping-Lisp
+
+Lisp reimplementation of the backend of the android shopping list app.
 
 For fun, a lisp equivalent to [GroundApps/ShoppingList_Backend](https://github.com/GroundApps/ShoppingList_Backend) which serves as the backend for [this app](https://github.com/GroundApps/ShoppingList).
 
