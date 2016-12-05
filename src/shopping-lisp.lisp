@@ -21,6 +21,8 @@
                   :headers `(:|ShoLiBackendVersion| ,+backend-version+))))
 
 (defmacro validated (&body body)
+  "Handle validation errors (`v:<validation-error>`) and respond with an error for the client."
+
   `(handler-case
        (progn ,@body)
      (v:<validation-error> (e)
@@ -29,6 +31,8 @@
                      :content "Invalid parameter"))))
 
 (defmacro with-password-check (&body body)
+  "Check the 'auth' body parameter to see if it hashes to the configured password.  If not, send the client an authentication failure response."
+
   `(if (cl-pass:check-password (body-parameter :auth "") (config :auth-hash))
        (progn ,@body)
        (api-response :type +api-error-403+
@@ -104,6 +108,8 @@
 
 (defmethod nest:start :before ((app app) &rest args)
   (declare (ignore args))
+
+  ;; Start up the db and make sure the table exists
   (shopping-lisp.db:connect))
 
 
